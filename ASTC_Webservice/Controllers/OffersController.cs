@@ -36,6 +36,26 @@ namespace ASTC_Webservice.Controllers
             return Ok(offer);
         }
 
+        //[Route("api/Offers/Shops/{id}")]
+        //public IHttpActionResult GetOffersByShop(int id)
+        //{
+        //    Offer offer = db.Offers.Find(id);
+        //    if (offer == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(offer);
+        //}
+
+        [Route("api/Offers/Shops/{id}")]
+        public IQueryable<Offer> GetOffersByShop(int id)
+        {
+            return db.Offers
+                .Where(b => b.ShopID.Equals(id)).Include(c => c.Shop);
+
+        }
+
         // PUT: api/Offers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutOffer(int id, Offer offer)

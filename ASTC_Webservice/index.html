@@ -10,25 +10,55 @@
         <ul id="products" />
     </div>
 
+
+
+    <div>
+        <h2>Offers from single shop</h2>
+        <ul id="offers" />
+    </div>
+
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
-    var uri = 'api/Events';
+        var uri = 'api/Events';
 
-    $(document).ready(function () {
-      // Send an AJAX request
-      $.getJSON(uri)
-          .done(function (data) {
-            // On success, 'data' contains a list of products.
-            $.each(data, function (key, item) {
-              // Add a list item for the product.
-              $('<li>', { text: formatItem(item) }).appendTo($('#products'));
-            });
-          });
-    });
+        $(document).ready(function () {
+            // Send an AJAX request
+            $.getJSON(uri)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: formatItem(item) }).appendTo($('#products'));
+                    });
+                });
+        });
 
-    function formatItem(item) {
-        return item.EventTitle + ' ' + item.EventDesc;
-    }
+        function formatItem(item) {
+            return item.EventTitle + ' ' + item.EventDesc;
+        }
+
+    </script>
+
+    <script>
+        var uri = 'API/Offers/Shops/1';
+
+        $(document).ready(function () {
+            // Send an AJAX request
+            $.getJSON(uri)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: formatItem(item) }).appendTo($('#offers'));
+                    });
+                });
+        });
+
+        function formatItem(item) {
+            return item.OfferTitle + ' ' + item.OfferDesc;
+        }
+
+        <img url=""
 
     </script>
 

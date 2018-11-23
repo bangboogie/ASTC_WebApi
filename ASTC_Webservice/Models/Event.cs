@@ -13,6 +13,8 @@ namespace ASTC_Webservice.Models
 
         public string EventDesc { get; set; }
 
+        public string EventImg { get; set; }
+
         public DateTime EventStart { get; set; }
 
         public DateTime EventEnd { get; set; }

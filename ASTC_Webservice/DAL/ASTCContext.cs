@@ -24,6 +24,7 @@ namespace ASTC_Webservice.DAL
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Offer> Offers { get; set; }
 
+
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Shop> Shops { get; set; }
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Voucher> Vouchers { get; set; }
