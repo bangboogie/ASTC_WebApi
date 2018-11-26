@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ASTC_Webservice.DAL;
 using ASTC_Webservice.Models;
+using System.Web.Http.Cors;
 
 namespace ASTC_Webservice.Controllers
 {
