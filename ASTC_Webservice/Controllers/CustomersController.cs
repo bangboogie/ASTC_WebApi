@@ -13,6 +13,7 @@ using ASTC_Webservice.Models;
 
 namespace ASTC_Webservice.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CustomersController : ApiController
     {
         private ASTCContext db = new ASTCContext();
