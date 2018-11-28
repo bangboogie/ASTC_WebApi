@@ -58,6 +58,14 @@ namespace ASTC_Webservice.Controllers
 
         }
 
+        [Route("api/Offers/{id}")]
+        public IQueryable<Offer> GetShopByOffer(int id)
+        {
+            return db.Offers
+                .Where(b => b.ID.Equals(id)).Include(c => c.Shop);
+
+        }
+
         // PUT: api/Offers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutOffer(int id, Offer offer)
