@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using ASTC_Webservice.DAL;
+using ASTC_Webservice.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using ASTC_Webservice.DAL;
-using ASTC_Webservice.Models;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
 
 namespace ASTC_Webservice.Controllers
 {
@@ -18,6 +15,29 @@ namespace ASTC_Webservice.Controllers
     public class CustomersController : ApiController
     {
         private ASTCContext db = new ASTCContext();
+
+        //Remember to read up on what this does. 
+        [Route("api/Customers")]
+        [HttpPost]
+        public IHttpActionResult CreateCustomerMember(Models.Customer customer)
+        {
+            var Customer = new Customer { Email = customer.Email, Lname = customer.Lname, Fname = customer.Fname, Pass = customer.Pass};
+
+            var cust = db.CreateCustomerMember(customer);
+            if (cust == null)
+            {
+                return ResponseMessage(Request.CreateErrorResponse(
+                    HttpStatusCode.NotImplemented, "Something went worng."
+                    ));
+
+            }
+
+            return Json(HttpStatusCode.OK);
+        }
+
+
+
+
 
         // GET: api/Customers
         public IQueryable<Customer> GetCustomers()
@@ -27,9 +47,9 @@ namespace ASTC_Webservice.Controllers
 
         // GET: api/Customers/5
         [ResponseType(typeof(Customer))]
-        public IHttpActionResult GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int ID)
         {
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.Customers.Find(ID);
             if (customer == null)
             {
                 return NotFound();

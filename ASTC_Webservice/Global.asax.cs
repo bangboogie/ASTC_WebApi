@@ -12,6 +12,7 @@ namespace ASTC_Webservice
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
         }
     }
 }

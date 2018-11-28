@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace ASTC_Webservice
@@ -22,6 +19,18 @@ namespace ASTC_Webservice
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //config.Routes.MapHttpRoute(
+            //name: "ActionApi",
+            //routeTemplate: "api/{controller}/{action}/{id}",    
+            //defaults: new { id = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+            name: "ActionApi",
+            routeTemplate: "api/{controller}/{action}",
+            defaults: new { Controller = "CustomersController", Action = "CreateCustomerMember"}
+            );
+
         }
     }
 }

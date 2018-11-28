@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ASTC_Webservice.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -30,6 +31,31 @@ namespace ASTC_Webservice.DAL
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Voucher> Vouchers { get; set; }
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Customer> Customers { get; set; }
+        
+        //this is corrected to the Customer controller. 
+        public Customer CreateCustomerMember(Customer customer)
+        {
+            var cust = Customers.Add(customer);
+
+            SaveChanges();
+
+            return cust; 
+        }
+
+
+        public Customer UpdateCustomerMember(Customer customer)
+        {
+
+            var oldInfo = Customers.FirstOrDefault(x => x.ID == customer.ID);
+            if(oldInfo != null)
+            {
+                Entry(oldInfo).CurrentValues.SetValues(customer);
+                SaveChanges();
+            }
+           
+            return oldInfo;
+        }
+
 
 
 
