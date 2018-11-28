@@ -5,164 +5,54 @@
 </head>
 <body>
 
-    <div>
-        <h2>All Products</h2>
-        <ul id="products" />
-    </div>
 
-    <input id="txtFirstName" type="text" class="box r30 r-62-52 inputField" placeholder="Username" autofocus="autofocus" />
-    <input id="txtLastName" type="text" class="box r30 r-62-52 inputField" placeholder="Username" autofocus="autofocus" />
-    <input id="txtEmail" type="email" class="box r30 r-62-52 inputField" placeholder="Email" autofocus="autofocus" />
-    <input id="txtPassword" type="password" class="box r30 r-62-52 inputField" placeholder="Password" />
-    <input id="txtPassword2" type="password" class="box r30 r-62-52 inputField" placeholder="Repeat password" />
-    <span id="lblErrorSignUp"></span>
-    <button id="btnSignUp" type="button" class="box r50 r-hoverable btnAction">SIGN UP</button>
+    <h2>Test 1:</h2>
+    <p>Register Javascript version</p>
+    <form id="RegisterForm">
+        <input id="loginFName" type="Text" name="FName" placeholder="First Name" value="">
+        <input id="loginLName" type="Text" name="LName" placeholder="Last Name" value="">
+        <input id="loginEmail" type="text" name="email" placeholder="Email" value="">
+        <input id="loginPass" type="password" name="password" placeholder="Password" value="">
+    </form>
+    <span id="SignUpSucces"></span>
+    <!--// return stops normal action and runs login()-->
+    <button onclick="return Register()">Submit</button>
 
-    <div>
-        <h2>Offers from single shop</h2>
-        <ul id="offers" />
-    </div>
+    <hr />
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script>
 
-        var uri = "";
-        $(document).ready(function () {
-            // Send an AJAX request
-            //$.getJSON(uri)
-            //    .done(function (data) {
-            //        // On success, 'data' contains a list of products.
-            //        $.each(data, function (key, item) {
-            //            // Add a list item for the product.
-            //            $('<li>', { text: formatItem(item) }).appendTo($('#products'));
-            //        });
-            //    });
+        // Test 1:
 
-            function areRegisterErrors() {
+        function Register() {
 
-                var emptyFirstName = false;
-                var emptyLastName = false;
-                var emptyemail = false;
-                var emptypassword = false;
-                var emptyrepeatpassword = false;
-                var repeatPasswordWrong = false;
-                if ($("#txtFirstName").val() === "")
-                    emptyFirstName = true;
-                if ($("#txtLastName").val() === "")
-                    emptyLastName = true;
-                if ($("#txtEmail").val() === "")
-                    emptyemail = true;
-                if ($("#txtPassword").val() === "")
-                    emptypassword = true;
-                if ($("#txtPassword2").val() === "")
-                    emptyrepeatpassword = true;
-                if ($("#txtPassword").val() !== $("#txtPassword2").val()) {
-                    repeatPasswordWrong = true;
-                }
-
-                if (emptyemail !== false && emptyFirstName != false && emptyLastName != false && emptypassword !== false && emptyrepeatpassword !== false) {
-                    $("#lblErrorSignUp").text("Firstname, LastName, Email, and Password fields are empty");
-                    return true;
-                }
-                else {
-                    if (emptyemail !== false) {
-                        $("#lblErrorSignUp").text("Email field is empty.");
-                        return true;
-                    }
-                    else {
-                        if (emptyFirstName != false) {
-                            $("#lblErrorSignUp").text("FirstName field is empty.");
-                            return true;
-                        }
-
-                        else {
-                            if (emptyLastName != false) {
-                                $("#lblErrorSignUp").text("Last field is empty.");
-                                return true;
-                            }
-                            else {
-                                if (emptypassword !== false) {
-                                    $("#lblErrorSignUp").text("Password field is empty.");
-                                    return true;
-                                }
-                                else {
-                                    if (emptyrepeatpassword !== false) {
-                                        $("#lblErrorSignUp").text("Please type your password in both fields.");
-                                        return true;
-                                    }
-                                    else {
-                                        if (repeatPasswordWrong !== false) {
-                                            $("#lblErrorSignUp").text("Passwords do not match.");
-                                            return true;
-                                        }
-                                        else {
-                                            // validation was successful
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                }
-
+            // Form fields, see IDs above
+            const customer = {
+                FName: document.querySelector('#loginFName').value,
+                LName: document.querySelector('#loginLName').value,
+                Email: document.querySelector('#loginEmail').value,
+                Pass: document.querySelector('#loginPass').value
             }
 
-
-            function register(Email, FName, LName, Pass, confirmPassword) {
-                var customer = { Email: Email, FName: FName, LName: LName, Pass: Pass, ConfirmPassword: confirmPassword };
-                $.ajax({
-                    url: uri + '/api/Customers/CreateCustomerMember',
-                    type: 'POST',
-                    data: JSON.stringify(customer),
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (response) {
-                        alert('success');
-                    },
-                    error: function (err) {
-                        alert('error');
-                       
-                    }
-                    
-
-                });
+            const http = new XMLHttpRequest()
+            http.open('POST', 'http://localhost:55825/Api/Customers/CreateCustomerMember', true)
+            http.setRequestHeader('Content-type', 'application/json')
+            http.send(JSON.stringify(customer)) // Make sure to stringify
+            http.onload = function () {
+                // Do whatever with response
+                //alert("You are now registered")
+                document.getElementById("SignUpSucces").innerHTML = "You are now registered";
+                document.getElementById("RegisterForm").reset();
             }
+        }
 
-
-            $("#btnSignUp").click(function () {
-
-                var Email = $("#txtEmail").val();
-                var FName = $("#txtFirstName").val();
-                var LName = $("#txtLastName").val();
-                var Pass = $("#txtPassword").val();
-                var confirmPassword = $("#txtPassword2").val();
-
-
-                if (!areRegisterErrors()) {
-                    register(Email, FName, LName, Pass, confirmPassword);
-                }
-
-               
-
-
-
-            });
-
-
-
-            });
 
 
         
 
-
-
-
     </script>
 
-       
+
 
 
 </body>
