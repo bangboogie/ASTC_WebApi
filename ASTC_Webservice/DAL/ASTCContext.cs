@@ -25,13 +25,28 @@ namespace ASTC_Webservice.DAL
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Offer> Offers { get; set; }
 
+        public System.Data.Entity.DbSet<ASTC_Webservice.Models.UserVoucher> UserVouchers { get; set; }
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Shop> Shops { get; set; }
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Voucher> Vouchers { get; set; }
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Customer> Customers { get; set; }
-        
+
+
+        //Voucher: 
+
+        public UserVoucher ReedemVoucher(UserVoucher uservoucher)
+        {
+            var Reedem = UserVouchers.Add(uservoucher);
+
+            SaveChanges();
+
+            return Reedem;
+        }
+
+
+
         //this is corrected to the Customer controller. 
         public Customer CreateCustomerMember(Customer customer)
         {

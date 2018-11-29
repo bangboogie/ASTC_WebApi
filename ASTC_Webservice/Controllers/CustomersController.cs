@@ -1,5 +1,6 @@
 ﻿using ASTC_Webservice.DAL;
 using ASTC_Webservice.Models;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace ASTC_Webservice.Controllers
     {
         private ASTCContext db = new ASTCContext();
 
-        //Remember to read up on what this does. 
+        //Custom made action methods:
         [Route("api/Customers")]
         [HttpPost]
         public IHttpActionResult CreateCustomerMember(Models.Customer customer)
@@ -34,9 +35,6 @@ namespace ASTC_Webservice.Controllers
 
             return Json(HttpStatusCode.OK);
         }
-
-
-
 
 
         // GET: api/Customers

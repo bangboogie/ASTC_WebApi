@@ -19,6 +19,49 @@ namespace ASTC_Webservice.Controllers
     {
         private ASTCContext db = new ASTCContext();
 
+        //Custom made action methods:
+
+        [Route("api/Vouchers")]
+        [HttpPost]
+        public IHttpActionResult RedeemVoucher(Models.Customer customer, Models.Voucher voucher, Models.UserVoucher userVoucher)
+        {
+            Boolean ok = false;
+            if(ok) {  
+
+                if (customer.Credit > voucher.VoucherCredit && voucher.VoucherCredit > 0)
+                {
+                    customer.Credit -= voucher.VoucherCredit;
+                    ok = true;
+
+                    var UserVoucher = new UserVoucher { VoucherID = voucher.ID, CustomerID = customer.ID };
+                    var redeem = db.ReedemVoucher(userVoucher);
+
+                    if (redeem == null )
+                    {
+                     return ResponseMessage(Request.CreateErrorResponse(
+                    HttpStatusCode.NotImplemented, "Something went worng."
+                    ));
+                    }
+
+                }
+
+                else
+                {
+                    ok = false;
+                    Console.WriteLine("Sadly you don't have enough points to redeem this voucher...");
+
+                }
+                
+            }
+
+            return Json(HttpStatusCode.OK);
+
+
+        }
+
+
+
+
         // GET: api/Vouchers
         public IQueryable<Voucher> GetVouchers()
         {
