@@ -21,7 +21,7 @@ namespace ASTC_Webservice.Controllers
 
         //Custom made action methods:
 
-        [Route("api/Vouchers")]
+       /* [Route("api/Vouchers")]
         [HttpPost]
         public IHttpActionResult RedeemVoucher(Models.Customer customer, Models.Voucher voucher, Models.UserVoucher userVoucher)
         {
@@ -59,7 +59,7 @@ namespace ASTC_Webservice.Controllers
 
         }
 
-
+	*/
 
 
         // GET: api/Vouchers
