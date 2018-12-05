@@ -78,18 +78,18 @@ namespace ASTC_Webservice.Controllers
         }
 
 
-        //// GET: api/Customers/5
-        //[ResponseType(typeof(Customer))]
-        //public IHttpActionResult GetCustomer(int ID)
-        //{
-        //    Customer customer = db.Customers.Find(ID);
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: api/Customers/5
+        [ResponseType(typeof(Customer))]
+        public IHttpActionResult CustomerID(int ID)
+        {
+            Customer customer = db.Customers.Find(ID);
+            if (customer == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(customer);
-        //}
+            return Ok(customer);
+        }
 
         // PUT: api/Customers/5
         [ResponseType(typeof(void))]
