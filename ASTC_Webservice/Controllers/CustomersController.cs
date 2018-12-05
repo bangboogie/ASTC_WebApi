@@ -79,7 +79,7 @@ namespace ASTC_Webservice.Controllers
             }
         }
 
-
+		[HttpGet]
         // GET: api/Customers/5
         [ResponseType(typeof(Customer))]
         public IHttpActionResult CustomerID(int ID)
