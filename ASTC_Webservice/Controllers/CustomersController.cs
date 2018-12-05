@@ -41,7 +41,9 @@ namespace ASTC_Webservice.Controllers
         }
 
         //Custom made action methods:
+        [AcceptVerbs("POST")]
         [HttpPost]
+        [Route("api/Customers/CreateCustomerMember")]
         public IHttpActionResult CreateCustomerMember(Models.Customer customer)
         {
             var Customer = new Customer { Email = customer.Email, Lname = customer.Lname, Fname = customer.Fname, Pass = customer.Pass};
