@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
+using System.Security.Claims;
+using System.Diagnostics;
 
 namespace ASTC_Webservice.Controllers
 {
@@ -17,8 +19,28 @@ namespace ASTC_Webservice.Controllers
     {
         private ASTCContext db = new ASTCContext();
 
+        
+        //public IQueryable<Customer> GetCustomers()
+        //{
+        //    return db.Customers;
+        //}
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/Customer/LoginCheck")]
+        public Customer LoginCheck(string email, string password)
+        {
+           
+                var account = GetCustomerByEmail(email);
+
+                Debug.WriteLine(account);
+                if (account.Pass == password)
+                    return account;
+                else return null;
+           
+        }
+
         //Custom made action methods:
-        [Route("api/Customers")]
         [HttpPost]
         public IHttpActionResult CreateCustomerMember(Models.Customer customer)
         {
@@ -36,25 +58,38 @@ namespace ASTC_Webservice.Controllers
             return Json(HttpStatusCode.OK);
         }
 
+        
 
-        // GET: api/Customers
-        public IQueryable<Customer> GetCustomers()
+        [HttpGet]
+        public Customer GetCustomerByEmail(string email)
         {
-            return db.Customers;
-        }
 
-        // GET: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult GetCustomer(int ID)
-        {
-            Customer customer = db.Customers.Find(ID);
-            if (customer == null)
+            var acc = db.GetCustomerByEmail(email);
+            if (acc != null)
             {
-                return NotFound();
+                return acc;
             }
-
-            return Ok(customer);
+            else
+            {
+                var message = "Cound not find this account.";
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+            }
         }
+
+
+        //// GET: api/Customers/5
+        //[ResponseType(typeof(Customer))]
+        //public IHttpActionResult GetCustomer(int ID)
+        //{
+        //    Customer customer = db.Customers.Find(ID);
+        //    if (customer == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(customer);
+        //}
 
         // PUT: api/Customers/5
         [ResponseType(typeof(void))]
@@ -135,5 +170,11 @@ namespace ASTC_Webservice.Controllers
         {
             return db.Customers.Count(e => e.ID == id) > 0;
         }
+
+      
+
+
+
+        
     }
 }

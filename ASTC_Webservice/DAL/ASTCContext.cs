@@ -71,7 +71,40 @@ namespace ASTC_Webservice.DAL
             return oldInfo;
         }
 
+        public Customer GetCustomerById(int id)
+        {
+            using (var entities = new ASTCContext())
+            {
+                var customer = entities.Customers.FirstOrDefault(x => x.ID == id);
 
+                return customer;
+            }
+        }
+
+
+
+        public Customer GetCustomerByEmail(string email)
+        {
+            using (var entities = new ASTCContext())
+            {
+
+                var customer = entities.Customers.FirstOrDefault(x => x.Email == email);
+
+                return customer;
+            }
+        }
+
+
+        public int GetCustomerIdByEmail(string email)
+        {
+            using (var entities = new ASTCContext())
+            {
+
+                int id = entities.Customers.Where(x => x.Email == email).Select(x => x.ID).SingleOrDefault();
+
+                return id;
+            }
+        }
 
 
     }

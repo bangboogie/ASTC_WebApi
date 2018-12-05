@@ -13,6 +13,7 @@ namespace ASTC_Webservice.Models
         public int ID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
+        [Required]
         public string Email { get; set; }
         public string Pass { get; set; }
         public int Credit { get; set; }

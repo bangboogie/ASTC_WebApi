@@ -2,53 +2,107 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Product App</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
 
-    <h2>Test 1:</h2>
-    <p>Register Javascript version</p>
-    <form id="RegisterForm">
-        <input id="loginFName" type="Text" name="FName" placeholder="First Name" value="">
-        <input id="loginLName" type="Text" name="LName" placeholder="Last Name" value="">
-        <input id="loginEmail" type="text" name="email" placeholder="Email" value="">
-        <input id="loginPass" type="password" name="password" placeholder="Password" value="">
-    </form>
-    <span id="SignUpSucces"></span>
-    <!--// return stops normal action and runs login()-->
-    <button onclick="return Register()">Submit</button>
-
+    <input id="txtEmail" type="email" class="box r30 r-62-52 inputField" placeholder="Email" autofocus="autofocus" />
+    <input id="txtPassword" type="password" class="box r30 r-62-52 inputField" placeholder="Password" />
+    <button id="btnLogin" type="button" class="box r50 r-62-52 r-hoverable btnAction">LOG IN</button>
+    <span id="lblLoginError"></span>
     <hr />
 
     <script>
 
         // Test 1:
+        var uri = "http://localhost:55825";
 
-        function Register() {
+        $(document).ready(function () {
 
-            // Form fields, see IDs above
-            const customer = {
-                FName: document.querySelector('#loginFName').value,
-                LName: document.querySelector('#loginLName').value,
-                Email: document.querySelector('#loginEmail').value,
-                Pass: document.querySelector('#loginPass').value
+            //login
+            function login(email, password) {
+                //var email = $('#emailValue').val();
+                //var password = $('#passwordValue').val();
+                var body = { Email: email, Password: password};
+
+                $.ajax({
+                    url: uri + '/api/Customers/LoginCheck',
+                    type: 'GET',
+                    data: body,
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (result) {
+                        console.log(result);             
+
+                       
+                      
+                    },
+                    error: function () {
+                        
+
+                        $("#lblLoginError").text("doesnt work");
+                    }
+                });
+
+
             }
+            /////////////////////////////////////////////////////////
+            //Login button
+            $('#btnLogin').click(function () {
+                var email = $('#txtEmail').val();
+                var password = $('#txtPassword').val();
+                clearLoginFields();
+                if (!areLoginErrors()) {
+                    login(email, password);
+                }
+            });
+            ///////////////////////////////////////////////////////
+            function areLoginErrors() {
+                var emptyemail = false;
+                var emptypassword = false;
 
-            const http = new XMLHttpRequest()
-            http.open('POST', 'http://localhost:55825/Api/Customers/CreateCustomerMember', true)
-            http.setRequestHeader('Content-type', 'application/json')
-            http.send(JSON.stringify(customer)) // Make sure to stringify
-            http.onload = function () {
-                // Do whatever with response
-                //alert("You are now registered")
-                document.getElementById("SignUpSucces").innerHTML = "You are now registered";
-                document.getElementById("RegisterForm").reset();
+                if ($('#txtEmail').val() === "")
+                    emptyemail = true;
+                if ($('#txtPassword').val() === "")
+                    emptypassword = true;
+
+                if (emptyemail !== false && emptypassword !== false) {
+                    $("#lblLoginError").text("Email and password fields are empty.");
+                    return true;
+                }
+                else {
+                    if (emptyemail !== false) {
+                        $("#lblLoginError").text("Email field is empty.");
+                        return true;
+                    }
+                    else {
+                        if (emptypassword !== false) {
+                            $("#lblLoginError").text("Password field is empty.");
+                            return true;
+                        }
+                        else {
+                            // validation was successful
+                            return false;
+                        }
+                    }
+
+                }
             }
-        }
+            //Clear fields login
+            function clearLoginFields() {
+                $("lblLoginError").text("");
+                $('#emailLogin').val("");
+                $('#passwordLogin').val("");
+                console.log("Fields cleared");
+            }
+            ///////////////////////////////////////////////////////
+        });
 
 
 
-        
 
     </script>
 
