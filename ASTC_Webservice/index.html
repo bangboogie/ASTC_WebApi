@@ -34,11 +34,12 @@
                     data: body,
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    success: function (result) {
-                        console.log(result);             
+                    success: function (result) {            
 
-                       
-                      
+                        // Store
+                        sessionStorage.setItem("cookie", result.ID);
+
+                        document.getElementById("tester").innerHTML = sessionStorage.getItem("cookie"); 
                     },
                     error: function () {
                         
@@ -106,7 +107,7 @@
 
     </script>
 
-
+    <div id="tester"></div>
 
 
 </body>
