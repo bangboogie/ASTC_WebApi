@@ -39,7 +39,7 @@ namespace ASTC_Webservice.Controllers
             else
 
             {
-                    Console.WriteLine("Noget fik galt:");
+                    Console.WriteLine("Something went wrong!");
                     return null;
                         
                 }
@@ -72,7 +72,8 @@ namespace ASTC_Webservice.Controllers
 
             }
 
-            return Json(HttpStatusCode.OK);
+           
+            return Ok(cust.ID);
         }
 
         
