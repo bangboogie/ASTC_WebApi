@@ -28,7 +28,7 @@ namespace ASTC_Webservice.Controllers
 
         [HttpGet]
         public IHttpActionResult LoginCheck(string email, string password)
-        {
+        { try { 
            
                 var account = GetCustomerByEmail(email);
 
@@ -37,9 +37,22 @@ namespace ASTC_Webservice.Controllers
                 
             }
             else
-            
-                { return null; }
-            
+
+            {
+                    Console.WriteLine("Noget fik galt:");
+                    return null;
+                        
+                }
+
+
+            }
+
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Error: " + e);
+                return null;
+            }
         }
 
         //Custom made action methods:
