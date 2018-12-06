@@ -26,14 +26,20 @@ namespace ASTC_Webservice
             //defaults: new { id = RouteParameter.Optional });
 
             config.Routes.MapHttpRoute(
-            name: "ActionApi",
+            name: "Createmember",
             routeTemplate: "api/{controller}/{action}",
-            defaults: new { Controller = "CustomersController", Action = "CreateCustomerMember"}
+            defaults: new { controller = "CustomersController", action = "CreateCustomerMember" }
+            );
+
+            config.Routes.MapHttpRoute(
+            name: "Login",
+            routeTemplate: "api/Customers/LoginCheck/{email}/{password}",
+            defaults: new { controller = "Customers", action = "LoginCheck" }
             );
 
 
 
-         
+
         }
     }
 }

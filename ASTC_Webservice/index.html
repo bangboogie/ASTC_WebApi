@@ -8,14 +8,74 @@
 </head>
 <body>
 
+    <script>
+        function Login() {
 
-    <input id="txtEmail" type="email" class="box r30 r-62-52 inputField" placeholder="Email" autofocus="autofocus" />
+            var email = document.querySelector('#email').value;
+            var password = document.querySelector('#pwd').value,
+
+
+
+
+            //Validation
+            var valEmail = document.forms["loginForm"]["email"].value;
+            var valPwd = document.forms["loginForm"]["pwd"].value;
+            var text = document.getElementById("validationInfo");
+
+            if (valEmail == "") {
+                text.innerHTML = "Email must be filled out";
+                return false;
+            } else if (valPwd == "") {
+                text.innerHTML = "Password must be filled out";
+                return false;
+            } else {
+                text.innerHTML = "Successfully login";
+            }
+
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", `http://localhost:55825/api/Customers/LoginCheck/${email}/${password}`, true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            xhr.onload = function () {
+                var userData = JSON.parse(xhr.responseText);
+                if (xhr.readyState == 4 && xhr.status == "200") {
+                    console.table(userData);
+                    document.getElementById("loginForm").reset();
+                } else {
+                    console.error(userData);
+                }
+            }
+            xhr.send(json);
+        }
+    </script>
+
+    <!--<input id="txtEmail" type="email" class="box r30 r-62-52 inputField" placeholder="Email" autofocus="autofocus" />
     <input id="txtPassword" type="password" class="box r30 r-62-52 inputField" placeholder="Password" />
     <button id="btnLogin" type="button" class="box r50 r-62-52 r-hoverable btnAction">LOG IN</button>
     <span id="lblLoginError"></span>
-    <hr />
+    <hr />-->
 
-    <script>
+    <div style="padding:16px">
+
+        <h2>Login</h2>
+        <p id="validationInfo"></p>
+        <form id="loginForm">
+            <input id="email" placeholder="Email" type="email" />
+            <input id="pwd" placeholder="Password" type="password" />
+        </form>
+
+        <!--// return stops normal action and runs Register()-->
+        <button type="submit" onclick="return Login()">Logsdffdg in</button>
+
+        <br />
+        
+    </div>
+
+
+
+
+
+    <!--<script>
 
         // Test 1:
         var uri = "http://localhost:55825";
@@ -34,15 +94,15 @@
                     data: body,
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    success: function (result) {            
+                    success: function (result) {
 
                         // Store
                         sessionStorage.setItem("cookie", result.ID);
 
-                        document.getElementById("tester").innerHTML = sessionStorage.getItem("cookie"); 
+                        document.getElementById("tester").innerHTML = sessionStorage.getItem("cookie");
                     },
                     error: function () {
-                        
+
 
                         $("#lblLoginError").text("doesnt work");
                     }
@@ -107,7 +167,7 @@
 
     </script>
 
-    <div id="tester"></div>
+    <div id="tester"></div>-->
 
 
 </body>

@@ -19,25 +19,27 @@ namespace ASTC_Webservice.Controllers
     {
         private ASTCContext db = new ASTCContext();
 
-        
-        //public IQueryable<Customer> GetCustomers()
-        //{
-        //    return db.Customers;
-        //}
 
-        [AcceptVerbs("GET", "POST")]
+        public IQueryable<Customer> GetCustomers()
+        {
+            return db.Customers;
+        }
+
+
         [HttpGet]
-        [Route("api/Customer/LoginCheck")]
-        public Customer LoginCheck(string email, string password)
+        public IHttpActionResult LoginCheck(string email, string password)
         {
            
                 var account = GetCustomerByEmail(email);
 
-                Debug.WriteLine(account);
-                if (account.Pass == password)
-                    return account;
-                else return null;
-           
+            if (account.Pass == password) {
+                return Ok(account.ID);
+                
+            }
+            else
+            
+                { return null; }
+            
         }
 
         //Custom made action methods:
