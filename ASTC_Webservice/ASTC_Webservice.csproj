@@ -113,6 +113,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\OffersController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
+    <Compile Include="Controllers\UserVouchersController.cs" />
     <Compile Include="Controllers\VouchersController.cs" />
     <Compile Include="DAL\ASTCContext.cs" />
     <Compile Include="Global.asax.cs">

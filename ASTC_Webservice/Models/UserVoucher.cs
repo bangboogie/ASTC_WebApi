@@ -7,6 +7,7 @@ namespace ASTC_Webservice.Models
 {
     public class UserVoucher
     {
+        public int ID { get; set; }
         //Foreign Key
         public int VoucherID { get; set; }
         public int CustomerID { get; set; }

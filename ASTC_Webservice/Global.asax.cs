@@ -12,7 +12,6 @@ namespace ASTC_Webservice
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            System.Web.HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
 
         }
     }

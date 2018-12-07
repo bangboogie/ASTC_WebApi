@@ -22,9 +22,7 @@ namespace ASTC_Webservice.Controllers
 
         //Custom made action methods:
 
-        [AcceptVerbs("POST")]
         [HttpPost]
-        [Route("api/Vouchers/RedeemVoucher")]
         public IHttpActionResult RedeemVoucher(int userid, int voucherid)
         {
             var customer = db.GetCustomerById(userid);
