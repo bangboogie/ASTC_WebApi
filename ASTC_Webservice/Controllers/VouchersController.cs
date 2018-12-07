@@ -32,10 +32,14 @@ namespace ASTC_Webservice.Controllers
 
                 if (customer.Credit > voucher.VoucherCredit && voucher.VoucherCredit > 0)
                 {
-                    customer.Credit -= voucher.VoucherCredit;
+                    var amount = customer.Credit -= voucher.VoucherCredit;
+
+                    var updateCust = db.UpdateCustomer(customer);
+                    updateCust.Credit = amount;
 
                     var UserVoucher = new UserVoucher { VoucherID = voucher.ID, CustomerID = customer.ID };
-                    var redeem = db.SaveVoucher(UserVoucher);
+                    db.SaveVoucher(UserVoucher);
+ 
                     return Ok();
                 }
 
