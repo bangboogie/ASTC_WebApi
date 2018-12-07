@@ -95,7 +95,31 @@ namespace ASTC_Webservice.Controllers
             }
         }
 
-		[HttpGet]
+        [HttpPost]
+        public IHttpActionResult UpdateCustomer(Customer customer)
+        {
+            var updateCust = db.UpdateCustomer(customer);
+            if(updateCust != null)
+            {
+                updateCust.Fname = customer.Fname;
+                updateCust.Lname = customer.Lname;
+                updateCust.Email = customer.Email;
+                updateCust.Pass = customer.Pass;
+            }
+
+            else
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok();
+        }
+
+
+
+        [HttpGet]
         // GET: api/Customers/5
         [ResponseType(typeof(Customer))]
         public IHttpActionResult CustomerID(int ID)

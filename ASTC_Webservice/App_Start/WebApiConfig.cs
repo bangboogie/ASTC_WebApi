@@ -38,6 +38,13 @@ namespace ASTC_Webservice
             );
 
 
+           config.Routes.MapHttpRoute(
+           name: "RedeemVoucher",
+            routeTemplate: "api/{controller}/{action}",
+           defaults: new { controller = "VouchersController", action = "RedeemVoucher" }
+           );
+
+
 
 
         }

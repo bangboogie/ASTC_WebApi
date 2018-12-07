@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using ASTC_Webservice.DAL;
 using ASTC_Webservice.Models;
 using System.Web.Http.Cors;
+using System.Web;
 
 namespace ASTC_Webservice.Controllers
 {
@@ -21,45 +22,46 @@ namespace ASTC_Webservice.Controllers
 
         //Custom made action methods:
 
-       /* [Route("api/Vouchers")]
+        [AcceptVerbs("POST")]
         [HttpPost]
-        public IHttpActionResult RedeemVoucher(Models.Customer customer, Models.Voucher voucher, Models.UserVoucher userVoucher)
+        [Route("api/Vouchers/RedeemVoucher")]
+        public IHttpActionResult RedeemVoucher(int userid, int voucherid)
         {
-            Boolean ok = false;
-            if(ok) {  
+            var customer = db.GetCustomerById(userid);
+            var voucher = db.GetVoucherById(voucherid);
+
+            if (customer != null && voucher != null) {
 
                 if (customer.Credit > voucher.VoucherCredit && voucher.VoucherCredit > 0)
                 {
                     customer.Credit -= voucher.VoucherCredit;
-                    ok = true;
 
                     var UserVoucher = new UserVoucher { VoucherID = voucher.ID, CustomerID = customer.ID };
-                    var redeem = db.ReedemVoucher(userVoucher);
-
-                    if (redeem == null )
-                    {
-                     return ResponseMessage(Request.CreateErrorResponse(
-                    HttpStatusCode.NotImplemented, "Something went worng."
-                    ));
-                    }
-
+                    var redeem = db.SaveVoucher(UserVoucher);
+                    return Ok();
                 }
+
 
                 else
                 {
-                    ok = false;
+
                     Console.WriteLine("Sadly you don't have enough points to redeem this voucher...");
+                    return NotFound();
 
                 }
-                
+
+
             }
 
-            return Json(HttpStatusCode.OK);
+            else
+            {
+                return NotFound();
+            }
 
 
         }
 
-	*/
+
 
 
         // GET: api/Vouchers

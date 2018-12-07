@@ -25,7 +25,7 @@ namespace ASTC_Webservice.DAL
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Offer> Offers { get; set; }
 
-       // public System.Data.Entity.DbSet<ASTC_Webservice.Models.UserVoucher> UserVouchers { get; set; }
+        public System.Data.Entity.DbSet<ASTC_Webservice.Models.UserVoucher> UserVouchers { get; set; }
 
         public System.Data.Entity.DbSet<ASTC_Webservice.Models.Shop> Shops { get; set; }
 
@@ -35,8 +35,8 @@ namespace ASTC_Webservice.DAL
 
 
         //Voucher: 
-/*
-        public UserVoucher ReedemVoucher(UserVoucher uservoucher)
+
+        public UserVoucher SaveVoucher(UserVoucher uservoucher)
         {
             var Reedem = UserVouchers.Add(uservoucher);
 
@@ -45,7 +45,18 @@ namespace ASTC_Webservice.DAL
             return Reedem;
         }
 
-	*/
+
+        public Voucher GetVoucherById(int id)
+        {
+            using (var entities = new ASTCContext())
+            {
+                var voucher = entities.Vouchers.FirstOrDefault(x => x.ID == id);
+
+                return voucher;
+            }
+        }
+
+
 
         //this is corrected to the Customer controller. 
         public Customer CreateCustomerMember(Customer customer)
@@ -58,7 +69,7 @@ namespace ASTC_Webservice.DAL
         }
 
 
-        public Customer UpdateCustomerMember(Customer customer)
+        public Customer UpdateCustomer(Customer customer)
         {
 
             var oldInfo = Customers.FirstOrDefault(x => x.ID == customer.ID);
@@ -70,6 +81,8 @@ namespace ASTC_Webservice.DAL
            
             return oldInfo;
         }
+
+
 
         public Customer GetCustomerById(int id)
         {

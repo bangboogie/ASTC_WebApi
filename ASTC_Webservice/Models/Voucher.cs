@@ -23,19 +23,7 @@ namespace ASTC_Webservice.Models
         public virtual Shop Shop { get; set; }
 
 
-        public Boolean RedeemVoucher(int voucherCredit, Models.Customer customer)
-        {
-            Boolean ok = false;
-
-            if (customer.Credit  > voucherCredit && voucherCredit > 0)
-            {
-                customer.Credit -= voucherCredit;
-                ok = true;
-            }
-            return ok;
-
-
-        }
+      
 
 
     }
