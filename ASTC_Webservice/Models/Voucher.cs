@@ -14,7 +14,6 @@ namespace ASTC_Webservice.Models
         public int VoucherCredit { get; set; }
         public DateTime VoucherStart { get; set; }
         public DateTime VoucherEnd { get; set; }
-        public bool VoucherUsed { get; set; }
 
         //Foreign Key
         public int ShopID { get; set; }

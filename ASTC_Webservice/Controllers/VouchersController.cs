@@ -30,7 +30,7 @@ namespace ASTC_Webservice.Controllers
 
             if (customer != null && voucher != null) {
 
-                if (customer.Credit > voucher.VoucherCredit && voucher.VoucherCredit > 0)
+                if (customer.Credit >= voucher.VoucherCredit && voucher.VoucherCredit > 0)
                 {
                     var amount = customer.Credit -= voucher.VoucherCredit;
 

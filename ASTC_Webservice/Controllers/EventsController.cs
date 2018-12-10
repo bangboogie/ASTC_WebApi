@@ -38,16 +38,6 @@ namespace ASTC_Webservice.Controllers
             return Ok(@event);
         }
 
-
-
-        //[Route("api/Events/Img/{id}")]
-        //public IQueryable<Event> GetImgByEvent(int id)
-        //{
-        //    return db.Events
-        //        .Where(b => b.ID.Equals(id)).Include(c => c.EventImg);
-
-        //}
-
         // PUT: api/Events/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEvent(int id, Event @event)

@@ -95,30 +95,6 @@ namespace ASTC_Webservice.Controllers
             }
         }
 
-        [HttpPost]
-        public IHttpActionResult UpdateCustomer(Customer customer)
-        {
-            var updateCust = db.UpdateCustomer(customer);
-            if(updateCust != null)
-            {
-                updateCust.Fname = customer.Fname;
-                updateCust.Lname = customer.Lname;
-                updateCust.Email = customer.Email;
-                updateCust.Pass = customer.Pass;
-            }
-
-            else
-            {
-                return NotFound();
-            }
-
-
-
-            return Ok();
-        }
-
-
-
         [HttpGet]
         // GET: api/Customers/5
         [ResponseType(typeof(Customer))]
@@ -133,6 +109,7 @@ namespace ASTC_Webservice.Controllers
             return Ok(customer);
         }
 
+        [HttpPut]
         // PUT: api/Customers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCustomer(int id, Customer customer)
@@ -140,11 +117,13 @@ namespace ASTC_Webservice.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+               
             }
 
             if (id != customer.ID)
             {
                 return BadRequest();
+
             }
 
             db.Entry(customer).State = EntityState.Modified;
